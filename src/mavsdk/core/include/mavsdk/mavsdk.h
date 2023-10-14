@@ -6,7 +6,7 @@
 #include <vector>
 #include <functional>
 
-#include "deprecated.h"
+//#include "deprecated.h" //dronela
 #include "handle.h"
 #include "system.h"
 #include "server_component.h"
@@ -221,7 +221,7 @@ public:
      *
      * @return A system or nothing if nothing was discovered within the timeout.
      */
-    std::optional<std::shared_ptr<System>> first_autopilot(double timeout_s) const;
+    std::shared_ptr<System> first_autopilot(double timeout_s) const; //std::optional<std::shared_ptr<System>> first_autopilot(double timeout_s) const; //dronela
 
     /**
      * @brief Possible configurations.
