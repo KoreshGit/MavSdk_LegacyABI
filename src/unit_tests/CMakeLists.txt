@@ -1,4 +1,4 @@
-find_package(jsoncpp REQUIRED)
+find_package(jsoncpp CONFIG REQUIRED)
 
 add_executable(unit_tests_runner
     ${UNIT_TEST_SOURCES}

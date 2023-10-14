@@ -6,6 +6,8 @@ add_subdirectory(core)
 add_subdirectory(plugins)
 
 hunter_add_package(jsoncpp)
+list(APPEND CMAKE_PREFIX_PATH "${CMAKE_SOURCE_DIR}/build/default/third_party/install")
+set(HUNTER_jsoncpp_VERSION "" CACHE STRING "Disable Hunter for jsoncpp" FORCE)
 find_package(jsoncpp REQUIRED)
 
 hunter_add_package(tinyxml2)

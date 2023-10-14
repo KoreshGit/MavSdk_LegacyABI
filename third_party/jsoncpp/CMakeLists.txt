@@ -9,9 +9,9 @@ list(APPEND CMAKE_ARGS
     "-DCMAKE_TOOLCHAIN_FILE:PATH=${CMAKE_TOOLCHAIN_FILE}"
     "-DCMAKE_POSITION_INDEPENDENT_CODE=ON"
     "-DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}"
-    "-DBUILD_SHARED_LIBS=OFF"
+    "-DBUILD_SHARED_LIBS=ON"
     "-DJSONCPP_WITH_CMAKE_PACKAGE=ON"
-    "-DJSONCPP_WITH_TESTS=OFF"
+    "-DJSONCPP_WITH_TESTS=ON"
     )
 
 if(IOS)
@@ -29,8 +29,7 @@ endforeach()
 
 ExternalProject_Add(
     jsoncpp
-    GIT_REPOSITORY https://github.com/open-source-parsers/jsoncpp
-    GIT_TAG 42e892d96e47b1f6e29844cc705e148ec4856448
+    SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../../../jsoncpp
     PREFIX jsoncpp
     CMAKE_ARGS "${CMAKE_ARGS}"
     )

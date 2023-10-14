@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.13)
-
+add_compile_options(-D_GLIBCXX_USE_CXX11_ABI=0)
 option(HUNTER_ENABLED "Enable Hunter package manager support" OFF)
 option(SUPERBUILD "Build dependencies" ON)
 option(BUILD_MAVSDK_SERVER "Build mavsdk_server" OFF)
