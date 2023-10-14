@@ -29,7 +29,7 @@ endforeach()
 
 ExternalProject_Add(
     jsoncpp
-    SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../../../jsoncpp
+    SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../../jsoncpp
     PREFIX jsoncpp
     CMAKE_ARGS "${CMAKE_ARGS}"
     )
