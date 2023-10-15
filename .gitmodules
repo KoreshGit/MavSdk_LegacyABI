@@ -4,3 +4,6 @@
 [submodule "googletest_safeEqual"]
 	path = googletest_safeEqual
 	url = git@github.com:KoreshGit/googletest_safeEqual.git
+[submodule "third_party/gtest"]
+	path = third_party/gtest
+	url = git@github.com:KoreshGit/googletest_safeEqual.git
