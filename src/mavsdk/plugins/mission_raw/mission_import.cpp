@@ -59,14 +59,14 @@ bool MissionImport::check_overall_version(const Json::Value& root)
     return true;
 }
 
-std::optional<std::vector<MissionRaw::MissionItem>>
+boost::optional<std::vector<MissionRaw::MissionItem>>
 MissionImport::import_mission(const Json::Value& root, Sender::Autopilot autopilot)
 {
     // We need a mission part.
     const auto mission = root["mission"];
     if (mission.empty()) {
         LogErr() << "No mission found in .plan.";
-        return std::nullopt;
+        return boost::none;
     }
 
     // Check the mission version.
@@ -75,7 +75,7 @@ MissionImport::import_mission(const Json::Value& root, Sender::Autopilot autopil
     if (mission_version.empty() || mission_version.asInt() != supported_mission_version) {
         LogErr() << "mission version for .plan not supported, found version: "
                  << mission_version.asInt() << ", supported: " << supported_mission_version;
-        return std::nullopt;
+        return boost::none;
     }
 
     std::vector<MissionRaw::MissionItem> mission_items;
@@ -89,7 +89,7 @@ MissionImport::import_mission(const Json::Value& root, Sender::Autopilot autopil
             if (maybe_item.has_value()) {
                 mission_items.push_back(maybe_item.value());
             } else {
-                return std::nullopt;
+                return boost::none;
             }
 
         } else if (!type.isNull() && type.asString() == "ComplexItem") {
@@ -98,12 +98,12 @@ MissionImport::import_mission(const Json::Value& root, Sender::Autopilot autopil
                 mission_items.insert(
                     mission_items.end(), maybe_items.value().begin(), maybe_items.value().end());
             } else {
-                return std::nullopt;
+                return boost::none;
             }
 
         } else {
             LogErr() << "Type " << type.asString() << " not understood.";
-            return std::nullopt;
+            return boost::none;
         }
     }
 
@@ -124,7 +124,7 @@ MissionImport::import_mission(const Json::Value& root, Sender::Autopilot autopil
         if (!home.empty()) {
             if (home.isArray() && home.size() != 3) {
                 LogErr() << "Unknown plannedHomePosition format";
-                return std::nullopt;
+                return boost::none;
             }
 
             mission_items.insert(
@@ -150,7 +150,7 @@ MissionImport::import_mission(const Json::Value& root, Sender::Autopilot autopil
     return {mission_items};
 }
 
-std::optional<std::vector<MissionRaw::MissionItem>>
+boost::optional<std::vector<MissionRaw::MissionItem>>
 MissionImport::import_geofence(const Json::Value& root)
 {
     std::vector<MissionRaw::MissionItem> geofence_items;
@@ -158,7 +158,7 @@ MissionImport::import_geofence(const Json::Value& root)
     // Return early if there are no geofence items.
     const auto geofence = root["geoFence"];
     if (geofence.empty()) {
-        return std::nullopt;
+        return boost::none;
     }
 
     // Check the mission version.
@@ -167,7 +167,7 @@ MissionImport::import_geofence(const Json::Value& root)
     if (geofence_version.empty() || geofence_version.asInt() != supported_geofence_version) {
         LogErr() << "geofence version for .plan not supported, found version: "
                  << geofence_version.asInt() << ", supported: " << supported_geofence_version;
-        return std::nullopt;
+        return boost::none;
     }
 
     // Import polygon geofences
@@ -196,7 +196,7 @@ MissionImport::import_geofence(const Json::Value& root)
     return {geofence_items};
 }
 
-std::optional<std::vector<MissionRaw::MissionItem>>
+boost::optional<std::vector<MissionRaw::MissionItem>>
 MissionImport::import_rally_points(const Json::Value& root)
 {
     std::vector<MissionRaw::MissionItem> rally_items;
@@ -204,7 +204,7 @@ MissionImport::import_rally_points(const Json::Value& root)
     // Return early if there are no rally points.
     const auto rally_points = root["rallyPoints"];
     if (rally_points.empty()) {
-        return std::nullopt;
+        return boost::none;
     }
 
     // Check the rally points version.
@@ -215,7 +215,7 @@ MissionImport::import_rally_points(const Json::Value& root)
         LogErr() << "rally points version for .plan not supported, found version: "
                  << rally_points_version.asInt()
                  << ", supported: " << supported_rally_points_version;
-        return std::nullopt;
+        return boost::none;
     }
 
     // Go through items
@@ -246,18 +246,18 @@ MissionImport::import_rally_points(const Json::Value& root)
     return {rally_items};
 }
 
-std::optional<MissionRaw::MissionItem>
+boost::optional<MissionRaw::MissionItem>
 MissionImport::import_simple_mission_item(const Json::Value& json_item)
 {
     if (json_item["command"].empty() || json_item["autoContinue"].empty() ||
         json_item["frame"].empty() || json_item["params"].empty()) {
         LogErr() << "Missing mission item field.";
-        return std::nullopt;
+        return boost::none;
     }
 
     if (!json_item["params"].isArray()) {
         LogErr() << "No param array found.";
-        return std::nullopt;
+        return boost::none;
     }
 
     MissionRaw::MissionItem item{};
@@ -298,22 +298,22 @@ MissionImport::import_simple_mission_item(const Json::Value& json_item)
     return {item};
 }
 
-std::optional<std::vector<MissionRaw::MissionItem>>
+boost::optional<std::vector<MissionRaw::MissionItem>>
 MissionImport::import_complex_mission_items(const Json::Value& json_item)
 {
     if (json_item["complexItemType"].empty()) {
         LogErr() << "Could not determine complexItemType";
-        return std::nullopt;
+        return boost::none;
     }
 
     if (json_item["complexItemType"] != "survey") {
         LogErr() << "complexItemType: " << json_item["complexItemType"] << " not supported";
-        return std::nullopt;
+        return boost::none;
     }
 
     if (json_item["version"].empty()) {
         LogErr() << "version of complexItem not found";
-        return std::nullopt;
+        return boost::none;
     }
 
     const int supported_complex_item_version = 5;
@@ -321,19 +321,19 @@ MissionImport::import_complex_mission_items(const Json::Value& json_item)
     if (found_version != 5) {
         LogErr() << "version of complexItem not supported, found version: " << found_version
                  << ", supported: " << supported_complex_item_version;
-        return std::nullopt;
+        return boost::none;
     }
 
     if (json_item["TransectStyleComplexItem"].empty()) {
         LogErr() << "TransectStyleComplexItem not found";
-        return std::nullopt;
+        return boost::none;
     }
 
     // These are Items (capitalized!) inside the  TransectStyleComplexItem.
     if (json_item["TransectStyleComplexItem"]["Items"].empty() ||
         !json_item["TransectStyleComplexItem"]["Items"].isArray()) {
         LogErr() << "No survey items found";
-        return std::nullopt;
+        return boost::none;
     }
 
     std::vector<MissionRaw::MissionItem> mission_items;

@@ -27,7 +27,7 @@
 #include <thread>
 #include <mutex>
 #include <future>
-
+#include <boost/optional.hpp>
 namespace mavsdk {
 
 class MavsdkImpl;
@@ -134,28 +134,28 @@ public:
     MavlinkParameterClient::Result set_param(
         const std::string& name,
         ParamValue value,
-        std::optional<uint8_t> maybe_component_id = {},
+        boost::optional<uint8_t> maybe_component_id = {},
         bool extended = false);
 
     MavlinkParameterClient::Result set_param_float(
         const std::string& name,
         float value,
-        std::optional<uint8_t> maybe_component_id = {},
+        boost::optional<uint8_t> maybe_component_id = {},
         bool extended = false);
 
     MavlinkParameterClient::Result set_param_int(
         const std::string& name,
         int32_t value,
-        std::optional<uint8_t> maybe_component_id = {},
+        boost::optional<uint8_t> maybe_component_id = {},
         bool extended = false);
 
     std::pair<MavlinkParameterClient::Result, std::map<std::string, ParamValue>>
-    get_all_params(std::optional<uint8_t> maybe_component_id = {}, bool extended = false);
+    get_all_params(boost::optional<uint8_t> maybe_component_id = {}, bool extended = false);
 
     MavlinkParameterClient::Result set_param_custom(
         const std::string& name,
         const std::string& value,
-        std::optional<uint8_t> maybe_component_id = {});
+        boost::optional<uint8_t> maybe_component_id = {});
 
     using SetParamCallback = std::function<void(MavlinkParameterClient::Result result)>;
 
@@ -164,7 +164,7 @@ public:
         float value,
         const SetParamCallback& callback,
         const void* cookie,
-        std::optional<uint8_t> maybe_component_id = {},
+        boost::optional<uint8_t> maybe_component_id = {},
         bool extended = false);
 
     void set_param_int_async(
@@ -172,7 +172,7 @@ public:
         int32_t value,
         const SetParamCallback& callback,
         const void* cookie,
-        std::optional<uint8_t> maybe_component_id = {},
+        boost::optional<uint8_t> maybe_component_id = {},
         bool extended = false);
 
     FlightMode get_flight_mode() const;
@@ -195,14 +195,14 @@ public:
 
     std::pair<MavlinkParameterClient::Result, float> get_param_float(
         const std::string& name,
-        std::optional<uint8_t> maybe_component_id = {},
+        boost::optional<uint8_t> maybe_component_id = {},
         bool extended = false);
     std::pair<MavlinkParameterClient::Result, int> get_param_int(
         const std::string& name,
-        std::optional<uint8_t> maybe_component_id = {},
+        boost::optional<uint8_t> maybe_component_id = {},
         bool extended = false);
     std::pair<MavlinkParameterClient::Result, std::string>
-    get_param_custom(const std::string& name, std::optional<uint8_t> maybe_component_id = {});
+    get_param_custom(const std::string& name, boost::optional<uint8_t> maybe_component_id = {});
 
     // These methods can be used to cache a parameter when a system connects. For that
     // the callback can just be set to nullptr.
@@ -211,21 +211,21 @@ public:
         ParamValue value,
         const GetParamAnyCallback& callback,
         const void* cookie,
-        std::optional<uint8_t> maybe_component_id = {},
+        boost::optional<uint8_t> maybe_component_id = {},
         bool extended = false);
 
     void get_param_float_async(
         const std::string& name,
         const GetParamFloatCallback& callback,
         const void* cookie,
-        std::optional<uint8_t> maybe_component_id = {},
+        boost::optional<uint8_t> maybe_component_id = {},
         bool extended = false);
 
     void get_param_int_async(
         const std::string& name,
         const GetParamIntCallback& callback,
         const void* cookie,
-        std::optional<uint8_t> maybe_component_id = {},
+        boost::optional<uint8_t> maybe_component_id = {},
         bool extended = false);
     void get_param_custom_async(
         const std::string& name, const GetParamCustomCallback& callback, const void* cookie);
@@ -235,7 +235,7 @@ public:
         ParamValue value,
         const SetParamCallback& callback,
         const void* cookie,
-        std::optional<uint8_t> maybe_component_id = {},
+        boost::optional<uint8_t> maybe_component_id = {},
         bool extended = false);
 
     void subscribe_param_float(
@@ -302,7 +302,7 @@ private:
     void set_connected();
     void set_disconnected();
 
-    std::optional<mavlink_message_t>
+    boost::optional<mavlink_message_t>
     process_autopilot_version_request(const MavlinkCommandReceiver::CommandLong& command);
 
     static std::string component_name(uint8_t component_id);

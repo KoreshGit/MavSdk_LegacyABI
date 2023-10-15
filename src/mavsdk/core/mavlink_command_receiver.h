@@ -10,7 +10,7 @@
 #include <optional>
 #include <unordered_map>
 #include <variant>
-
+#include <boost/optional.hpp>
 namespace mavsdk {
 
 class MavsdkImpl;
@@ -104,9 +104,9 @@ public:
     };
 
     using MavlinkCommandIntHandler =
-        std::function<std::optional<mavlink_message_t>(const CommandInt&)>;
+        std::function<boost::optional<mavlink_message_t>(const CommandInt&)>;
     using MavlinkCommandLongHandler =
-        std::function<std::optional<mavlink_message_t>(const CommandLong&)>;
+        std::function<boost::optional<mavlink_message_t>(const CommandLong&)>;
 
     void register_mavlink_command_handler(
         uint16_t cmd_id, const MavlinkCommandIntHandler& callback, const void* cookie);

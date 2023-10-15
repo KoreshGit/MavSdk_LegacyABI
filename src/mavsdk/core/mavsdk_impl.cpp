@@ -118,7 +118,7 @@ std::vector<std::shared_ptr<System>> MavsdkImpl::systems() const
     return systems_result;
 }
 
-std::optional<std::shared_ptr<System>> MavsdkImpl::first_autopilot(double timeout_s)
+boost::optional<std::shared_ptr<System>> MavsdkImpl::first_autopilot(double timeout_s)
 {
     {
         std::lock_guard<std::recursive_mutex> lock(_systems_mutex);
@@ -154,12 +154,12 @@ std::optional<std::shared_ptr<System>> MavsdkImpl::first_autopilot(double timeou
 
         } else {
             unsubscribe_on_new_system(handle);
-            return std::nullopt;
+            return boost::none;
         }
     } else {
         fut.wait();
         unsubscribe_on_new_system(handle);
-        return std::optional(fut.get());
+        return boost::optional<std::remove_reference<decltype(fut.get())>::type>(fut.get());
     }
 }
 

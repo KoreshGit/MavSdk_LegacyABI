@@ -4,7 +4,7 @@
 #include "plugin_impl_base.h"
 #include <atomic>
 #include <optional>
-
+#include <boost/optional.hpp>
 namespace mavsdk {
 
 class ServerUtilityImpl : public PluginImplBase {
@@ -21,7 +21,7 @@ public:
 
     ServerUtility::Result send_status_text(ServerUtility::StatusTextType type, std::string text);
 
-    std::optional<MAV_SEVERITY>
+    boost::optional<MAV_SEVERITY>
     mav_severity_from_status_text_type(ServerUtility::StatusTextType type);
 
 private:

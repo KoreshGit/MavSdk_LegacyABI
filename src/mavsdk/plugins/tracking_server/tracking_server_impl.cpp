@@ -220,14 +220,14 @@ TrackingServerImpl::respond_tracking_off_command(TrackingServer::CommandAnswer c
                                                            TrackingServer::Result::ConnectionError;
 }
 
-std::optional<mavlink_message_t>
+boost::optional<mavlink_message_t>
 TrackingServerImpl::process_track_point_command(const MavlinkCommandReceiver::CommandLong& command)
 {
     if (!is_command_sender_ok(command)) {
         LogWarn() << "Incoming track point command is for target sysid "
                   << int(command.target_system_id) << " instead of "
                   << int(_server_component_impl->get_own_system_id());
-        return std::nullopt;
+        return boost::none;
     }
 
     TrackingServer::TrackPoint track_point{
@@ -242,17 +242,17 @@ TrackingServerImpl::process_track_point_command(const MavlinkCommandReceiver::Co
     });
 
     // We don't send an ack but leave that to the user.
-    return std::nullopt;
+    return boost::none;
 }
 
-std::optional<mavlink_message_t> TrackingServerImpl::process_track_rectangle_command(
+boost::optional<mavlink_message_t> TrackingServerImpl::process_track_rectangle_command(
     const MavlinkCommandReceiver::CommandLong& command)
 {
     if (!is_command_sender_ok(command)) {
         LogWarn() << "Incoming track rectangle command is for target sysid "
                   << int(command.target_system_id) << " instead of "
                   << int(_server_component_impl->get_own_system_id());
-        return std::nullopt;
+        return boost::none;
     }
 
     TrackingServer::TrackRectangle track_rectangle{
@@ -267,17 +267,17 @@ std::optional<mavlink_message_t> TrackingServerImpl::process_track_rectangle_com
     });
 
     // We don't send an ack but leave that to the user.
-    return std::nullopt;
+    return boost::none;
 }
 
-std::optional<mavlink_message_t>
+boost::optional<mavlink_message_t>
 TrackingServerImpl::process_track_off_command(const MavlinkCommandReceiver::CommandLong& command)
 {
     if (!is_command_sender_ok(command)) {
         LogWarn() << "Incoming track off command is for target sysid "
                   << int(command.target_system_id) << " instead of "
                   << int(_server_component_impl->get_own_system_id());
-        return std::nullopt;
+        return boost::none;
     }
 
     std::lock_guard<std::mutex> lock(_mutex);
@@ -288,7 +288,7 @@ TrackingServerImpl::process_track_off_command(const MavlinkCommandReceiver::Comm
         0, [this](const auto& func) { _server_component_impl->call_user_callback(func); });
 
     // We don't send an ack but leave that to the user.
-    return std::nullopt;
+    return boost::none;
 }
 
 bool TrackingServerImpl::is_command_sender_ok(const MavlinkCommandReceiver::CommandLong& command)

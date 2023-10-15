@@ -12,7 +12,7 @@
 #include "server_component.h"
 #include "connection_result.h"
 #include "mavlink_include.h"
-
+#include <boost/optional.hpp>
 namespace mavsdk {
 
 class ServerPluginImplBase;
@@ -221,7 +221,7 @@ public:
      *
      * @return A system or nothing if nothing was discovered within the timeout.
      */
-    std::shared_ptr<System> first_autopilot(double timeout_s) const; //std::optional<std::shared_ptr<System>> first_autopilot(double timeout_s) const; //dronela
+    boost::optional<std::shared_ptr<System>> first_autopilot(double timeout_s) const; //dronela
 
     /**
      * @brief Possible configurations.

@@ -8,7 +8,7 @@
 #include <mutex>
 #include <optional>
 #include <vector>
-
+#include <boost/optional.hpp>
 namespace mavsdk {
 
 class SystemImpl;
@@ -39,7 +39,7 @@ private:
         uint32_t param2{0};
         std::size_t retries{0};
         void* timeout_cookie{nullptr};
-        std::optional<MavlinkCommandSender::Result> maybe_result{};
+        boost::optional<MavlinkCommandSender::Result> maybe_result{};
     };
 
     void send_request(uint32_t message_id, uint8_t target_component);

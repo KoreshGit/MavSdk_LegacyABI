@@ -3,7 +3,7 @@
 #include <string>
 #include <optional>
 #include <cstdint>
-
+#include <boost/optional.hpp>
 namespace mavsdk {
 
 #if defined(WINDOWS)
@@ -26,6 +26,6 @@ bool fs_remove(const std::string& path);
 
 bool fs_rename(const std::string& old_name, const std::string& new_name);
 
-std::optional<std::string> create_tmp_directory(const std::string& prefix);
+boost::optional<std::string> create_tmp_directory(const std::string& prefix);
 
 } // namespace mavsdk

@@ -20,7 +20,8 @@
 #include "system.h"
 #include "timeout_handler.h"
 #include "callback_list.h"
-
+#include <boost/optional.hpp>
+#include <boost/shared_ptr.hpp>
 namespace mavsdk {
 
 class MavsdkImpl {
@@ -71,7 +72,7 @@ public:
 
     std::vector<std::shared_ptr<System>> systems() const;
 
-    std::optional<std::shared_ptr<System>> first_autopilot(double timeout_s);
+    boost::optional<std::shared_ptr<System>> first_autopilot(double timeout_s);
 
     void set_configuration(Mavsdk::Configuration new_configuration);
     Mavsdk::Configuration get_configuration() const;

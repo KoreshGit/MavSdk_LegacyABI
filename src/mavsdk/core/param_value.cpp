@@ -450,7 +450,7 @@ bool ParamValue::set_as_same_type(const std::string& value_str)
     }
 }
 
-[[nodiscard]] std::optional<int> ParamValue::get_int() const
+[[nodiscard]] boost::optional<int> ParamValue::get_int() const
 {
     if (std::get_if<uint32_t>(&_value)) {
         return static_cast<int>(std::get<uint32_t>(_value));
@@ -505,7 +505,7 @@ void ParamValue::set_custom(const std::string& new_value)
     _value = new_value;
 }
 
-[[nodiscard]] std::optional<float> ParamValue::get_float() const
+[[nodiscard]] boost::optional<float> ParamValue::get_float() const
 {
     if (std::get_if<float>(&_value)) {
         return std::get<float>(_value);
@@ -515,7 +515,7 @@ void ParamValue::set_custom(const std::string& new_value)
     }
 }
 
-[[nodiscard]] std::optional<std::string> ParamValue::get_custom() const
+[[nodiscard]] boost::optional<std::string> ParamValue::get_custom() const
 {
     if (std::get_if<std::string>(&_value)) {
         return std::get<std::string>(_value);

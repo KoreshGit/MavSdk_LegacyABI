@@ -9,7 +9,7 @@
 #include "plugin_impl_base.h"
 #include "system.h"
 #include "callback_list.h"
-
+#include <boost/optional.hpp>
 namespace mavsdk {
 
 class System;
@@ -235,7 +235,7 @@ private:
     void set_health_accelerometer_calibration(bool ok);
     void set_health_magnetometer_calibration(bool ok);
     void set_health_armable(bool ok);
-    void set_rc_status(std::optional<bool> available, std::optional<float> signal_strength_percent);
+    void set_rc_status(boost::optional<bool> available, boost::optional<float> signal_strength_percent);
     void set_unix_epoch_time_us(uint64_t time_us);
     void set_actuator_control_target(uint8_t group, const std::vector<float>& controls);
     void set_actuator_output_status(uint32_t active, const std::vector<float>& actuators);
@@ -468,9 +468,9 @@ private:
     std::mutex _ap_calibration_mutex{};
     struct ArdupilotCalibration {
         struct OffsetStatus {
-            std::optional<float> x{};
-            std::optional<float> y{};
-            std::optional<float> z{};
+            boost::optional<float> x{};
+            boost::optional<float> y{};
+            boost::optional<float> z{};
 
             [[nodiscard]] bool received_all() const
             {

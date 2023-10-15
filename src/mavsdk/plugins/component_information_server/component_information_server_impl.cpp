@@ -101,7 +101,7 @@ void ComponentInformationServerImpl::param_update(const std::string& name, float
     });
 }
 
-std::optional<MAV_RESULT> ComponentInformationServerImpl::process_component_information_requested()
+boost::optional<MAV_RESULT> ComponentInformationServerImpl::process_component_information_requested()
 {
     const char general_metadata_uri[100] = "mftp://general.json";
     const char peripherals_metadata_uri[100] = "";

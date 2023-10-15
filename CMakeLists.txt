@@ -6,6 +6,27 @@ option(BUILD_MAVSDK_SERVER "Build mavsdk_server" OFF)
 option(BUILD_WITH_PROTO_REFLECTION "Build mavsdk_server with proto reflection" OFF)
 option(BUILD_SHARED_LIBS "Build core as shared libraries instead of static ones" ON)
 option(MAVLINK_DIALECT "MAVLink dialect. Default: common" "common")
+include_directories(/home/kore/Downloads/boost_1_80_0/boost_1_80_0)
+
+include(ExternalProject)
+
+set(BOOST_VERSION "1.80.0")
+set(BOOST_URL "https://dl.bintray.com/boostorg/release/${BOOST_VERSION}/source/boost_${BOOST_VERSION}.tar.bz2")
+set(BOOST_PREFIX "${CMAKE_BINARY_DIR}/_deps/boost-install")
+
+ExternalProject_Add(
+    BoostExternal
+    PREFIX ${CMAKE_BINARY_DIR}/_deps/boost
+    URL ${BOOST_URL}
+    DOWNLOAD_NAME boost_${BOOST_VERSION}.tar.bz2
+    DOWNLOAD_DIR ${CMAKE_BINARY_DIR}/_deps/downloads
+    SOURCE_DIR ${CMAKE_BINARY_DIR}/_deps/boost-src
+    BINARY_DIR ${CMAKE_BINARY_DIR}/_deps/boost-build
+    INSTALL_DIR ${BOOST_PREFIX}
+    CONFIGURE_COMMAND <SOURCE_DIR>/bootstrap.sh
+    BUILD_COMMAND <SOURCE_DIR>/b2 --with-filesystem --with-system
+    INSTALL_COMMAND <SOURCE_DIR>/b2 install --prefix=<INSTALL_DIR>
+)
 
 if (SUPERBUILD AND HUNTER_ENABLED)
     message(FATAL_ERROR "Cannot SUPERBUILD while HUNTER_ENABLED. Set -DSUPERBUILD=OFF when using Hunter")

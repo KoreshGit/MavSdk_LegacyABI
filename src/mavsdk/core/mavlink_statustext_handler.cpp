@@ -3,7 +3,7 @@
 
 namespace mavsdk {
 
-std::optional<MavlinkStatustextHandler::Statustext>
+boost::optional<MavlinkStatustextHandler::Statustext>
 MavlinkStatustextHandler::process(const mavlink_statustext_t& statustext)
 {
     char text_with_null[sizeof(statustext.text) + 1]{};
@@ -28,7 +28,7 @@ MavlinkStatustextHandler::process(const mavlink_statustext_t& statustext)
 
         if (strlen(text_with_null) == sizeof(statustext.text)) {
             // No zero termination yet, keep going.
-            return std::nullopt;
+            return boost::none;
         } else {
             return Statustext{_temp_multi_str, severity};
         }

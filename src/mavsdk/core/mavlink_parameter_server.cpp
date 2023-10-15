@@ -8,7 +8,7 @@ namespace mavsdk {
 MavlinkParameterServer::MavlinkParameterServer(
     Sender& sender,
     MavlinkMessageHandler& message_handler,
-    std::optional<std::map<std::string, ParamValue>> optional_param_values) :
+    boost::optional<std::map<std::string, ParamValue>> optional_param_values) :
     _sender(sender),
     _message_handler(message_handler)
 {

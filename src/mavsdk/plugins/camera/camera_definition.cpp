@@ -202,10 +202,10 @@ bool CameraDefinition::parse_xml()
 
             if (!maybe_default.first) {
                 LogWarn() << "Default not found for " << param_name;
-                return std::optional<Option>{};
+                return boost::optional<Option>{};
             }
 
-            return std::optional{maybe_default.second};
+            return boost::optional<Option>{maybe_default.second};
         };
 
         auto e_options = e_parameter->FirstChildElement("options");

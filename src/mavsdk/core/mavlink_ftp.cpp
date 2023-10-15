@@ -1344,7 +1344,7 @@ MavlinkFtp::ClientResult MavlinkFtp::set_target_compid(uint8_t component_id)
     return ClientResult::Success;
 }
 
-std::optional<std::string>
+boost::optional<std::string>
 MavlinkFtp::write_tmp_file(const std::string& path, const std::string& content)
 {
     // TODO: Check if currently an operation is ongoing.

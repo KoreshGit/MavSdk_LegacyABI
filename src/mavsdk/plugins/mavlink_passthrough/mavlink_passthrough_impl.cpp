@@ -107,7 +107,7 @@ mavlink_message_t MavlinkPassthroughImpl::make_command_ack_message(
 }
 
 std::pair<MavlinkPassthrough::Result, int32_t> MavlinkPassthroughImpl::get_param_int(
-    const std::string& name, std::optional<uint8_t> maybe_component_id, bool extended)
+    const std::string& name, boost::optional<uint8_t> maybe_component_id, bool extended)
 {
     auto result = _system_impl->get_param_int(name, maybe_component_id, extended);
     auto translated_result = to_mavlink_passthrough_result_from_mavlink_params_result(result.first);
@@ -116,7 +116,7 @@ std::pair<MavlinkPassthrough::Result, int32_t> MavlinkPassthroughImpl::get_param
 }
 
 std::pair<MavlinkPassthrough::Result, float> MavlinkPassthroughImpl::get_param_float(
-    const std::string& name, std::optional<uint8_t> maybe_component_id, bool extended)
+    const std::string& name, boost::optional<uint8_t> maybe_component_id, bool extended)
 {
     auto result = _system_impl->get_param_float(name, maybe_component_id, extended);
     auto translated_result = to_mavlink_passthrough_result_from_mavlink_params_result(result.first);

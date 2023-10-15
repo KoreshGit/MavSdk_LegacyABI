@@ -1140,7 +1140,7 @@ void TelemetryImpl::process_sys_status(const mavlink_message_t& message)
     const bool rc_ok =
         sys_status.onboard_control_sensors_health & MAV_SYS_STATUS_SENSOR_RC_RECEIVER;
 
-    set_rc_status({rc_ok}, std::nullopt);
+    set_rc_status({rc_ok}, boost::none);
 
     if (sys_status.onboard_control_sensors_present & MAV_SYS_STATUS_SENSOR_3D_GYRO) {
         set_health_gyrometer_calibration(
@@ -1187,7 +1187,7 @@ void TelemetryImpl::process_sys_status(const mavlink_message_t& message)
             SysStatusUsed::Yes :
             SysStatusUsed::No;
 
-    set_rc_status({rc_ok}, std::nullopt);
+    set_rc_status({rc_ok}, boost::none);
 
     std::lock_guard<std::mutex> lock(_subscription_mutex);
     _rc_status_subscriptions.queue(
@@ -1333,7 +1333,7 @@ void TelemetryImpl::process_rc_channels(const mavlink_message_t& message)
     mavlink_msg_rc_channels_decode(&message, &rc_channels);
 
     if (rc_channels.rssi != std::numeric_limits<uint8_t>::max()) {
-        set_rc_status(std::nullopt, {rc_channels.rssi});
+        set_rc_status(boost::none, {rc_channels.rssi});
     }
 
     std::lock_guard<std::mutex> lock(_subscription_mutex);
@@ -2157,7 +2157,7 @@ void TelemetryImpl::set_landed_state(Telemetry::LandedState landed_state)
 }
 
 void TelemetryImpl::set_rc_status(
-    std::optional<bool> maybe_available, std::optional<float> maybe_signal_strength_percent)
+    boost::optional<bool> maybe_available, boost::optional<float> maybe_signal_strength_percent)
 {
     std::lock_guard<std::mutex> lock(_rc_status_mutex);
 

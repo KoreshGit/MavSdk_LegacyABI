@@ -5,7 +5,7 @@
 #include <optional>
 #include <condition_variable>
 #include <cstdio>
-
+#include <boost/optional.hpp>
 namespace mavsdk {
 
 /*
@@ -25,18 +25,18 @@ public:
         _condition_var.notify_one();
     }
 
-    std::optional<T> dequeue()
+    boost::optional<T> dequeue()
     {
         std::unique_lock<std::mutex> lock(_mutex);
         while (_queue.empty()) {
             if (_should_exit) {
-                return std::nullopt;
+                return boost::none;
             }
             // Release lock during the wait and re-acquire it afterwards.
             _condition_var.wait(lock);
         }
         if (_should_exit) {
-            return std::nullopt;
+            return boost::none;
         } else {
             T item = _queue.front();
             _queue.pop();

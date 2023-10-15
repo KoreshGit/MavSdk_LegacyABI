@@ -6,7 +6,7 @@
 #include "plugins/mavlink_passthrough/mavlink_passthrough.h"
 #include "plugin_impl_base.h"
 #include "callback_list.h"
-
+#include <boost/optional.hpp>
 namespace mavsdk {
 
 class MavlinkPassthroughImpl : public PluginImplBase {
@@ -30,9 +30,9 @@ public:
         const uint16_t command,
         MAV_RESULT result);
     std::pair<MavlinkPassthrough::Result, int32_t> get_param_int(
-        const std::string& name, std::optional<uint8_t> maybe_component_id, bool extended);
+        const std::string& name, boost::optional<uint8_t> maybe_component_id, bool extended);
     std::pair<MavlinkPassthrough::Result, float> get_param_float(
-        const std::string& name, std::optional<uint8_t> maybe_component_id, bool extended);
+        const std::string& name, boost::optional<uint8_t> maybe_component_id, bool extended);
 
     MavlinkPassthrough::MessageHandle
     subscribe_message(uint16_t message_id, const MavlinkPassthrough::MessageCallback& callback);

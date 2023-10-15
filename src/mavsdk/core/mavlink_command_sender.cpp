@@ -466,7 +466,7 @@ mavlink_message_t MavlinkCommandSender::create_mavlink_message(const Command& co
     return message;
 }
 
-float MavlinkCommandSender::maybe_reserved(const std::optional<float>& maybe_param) const
+float MavlinkCommandSender::maybe_reserved(const boost::optional<float>& maybe_param) const
 {
     if (maybe_param) {
         return maybe_param.value();

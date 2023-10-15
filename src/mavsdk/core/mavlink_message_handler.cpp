@@ -14,7 +14,7 @@ void MavlinkMessageHandler::register_one(
 
 void MavlinkMessageHandler::register_one(
     uint16_t msg_id,
-    std::optional<uint8_t> component_id,
+    boost::optional<uint8_t> component_id,
     const Callback& callback,
     const void* cookie)
 {
