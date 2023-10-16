@@ -80,7 +80,7 @@ MavlinkParameterCache::all_parameters_map(bool including_extended) const
     return mp;
 }
 
-std::optional<MavlinkParameterCache::Param>
+boost::optional<MavlinkParameterCache::Param>
 MavlinkParameterCache::param_by_id(const std::string& param_id, bool including_extended) const
 {
     const auto& params = all_parameters(including_extended);
@@ -94,7 +94,7 @@ MavlinkParameterCache::param_by_id(const std::string& param_id, bool including_e
     return {};
 }
 
-std::optional<MavlinkParameterCache::Param>
+boost::optional<MavlinkParameterCache::Param>
 MavlinkParameterCache::param_by_index(uint16_t param_index, bool including_extended) const
 {
     const auto& params = all_parameters(including_extended);
@@ -129,7 +129,7 @@ bool MavlinkParameterCache::exists(const std::string& param_id) const
     return it != _all_params.end();
 }
 
-std::optional<uint16_t> MavlinkParameterCache::next_missing_index(uint16_t count)
+boost::optional<uint16_t> MavlinkParameterCache::next_missing_index(uint16_t count)
 {
     // Extended doesn't matter here because we use this function in the sender
     // which is always either all extended or not.

@@ -4,7 +4,7 @@
 #include "mavlink_receiver.h"
 #include <memory>
 #include <unordered_set>
-
+#include <boost/optional.hpp>
 namespace mavsdk {
 
 class Connection {

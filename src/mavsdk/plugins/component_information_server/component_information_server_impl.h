@@ -3,7 +3,7 @@
 #include "plugins/component_information_server/component_information_server.h"
 #include "server_plugin_impl_base.h"
 #include "callback_list.h"
-
+#include <boost/optional.hpp>
 namespace mavsdk {
 
 class ComponentInformationServerImpl : public ServerPluginImplBase {
@@ -30,7 +30,7 @@ private:
     std::string generate_parameter_file();
     std::string generate_meta_file();
 
-    std::optional<MAV_RESULT> process_component_information_requested();
+    boost::optional<MAV_RESULT> process_component_information_requested();
 
     std::mutex _mutex{};
     std::vector<ComponentInformationServer::FloatParam> _float_params{};

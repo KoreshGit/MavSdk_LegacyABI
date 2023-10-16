@@ -9,7 +9,7 @@
 #include <variant>
 #include <cstring>
 #include <cassert>
-
+#include <boost/optional.hpp>
 namespace mavsdk {
 
 /**
@@ -36,9 +36,9 @@ public:
     [[nodiscard]] float get_4_float_bytes_bytewise() const;
     [[nodiscard]] float get_4_float_bytes_cast() const;
 
-    [[nodiscard]] std::optional<int> get_int() const;
-    [[nodiscard]] std::optional<float> get_float() const;
-    [[nodiscard]] std::optional<std::string> get_custom() const;
+    [[nodiscard]] boost::optional<int> get_int() const;
+    [[nodiscard]] boost::optional<float> get_float() const;
+    [[nodiscard]] boost::optional<std::string> get_custom() const;
 
     bool set_int(int new_value);
     void set_float(float new_value);

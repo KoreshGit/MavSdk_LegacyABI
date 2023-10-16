@@ -3,6 +3,7 @@
 #include "mavlink_include.h"
 #include <string>
 #include <optional>
+#include <boost/optional.hpp>
 
 namespace mavsdk {
 
@@ -16,7 +17,7 @@ public:
         MAV_SEVERITY severity;
     };
 
-    std::optional<Statustext> process(const mavlink_statustext_t& statustext);
+    boost::optional<Statustext> process(const mavlink_statustext_t& statustext);
 
     static std::string severity_str(MAV_SEVERITY severity);
 

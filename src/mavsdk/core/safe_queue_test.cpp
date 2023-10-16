@@ -24,7 +24,7 @@ TEST(SafeQueue, FillAndEmpty)
     EXPECT_EQ(safe_queue.size(), 0);
 
     safe_queue.stop();
-    EXPECT_EQ(safe_queue.dequeue(), std::nullopt);
+    EXPECT_EQ(safe_queue.dequeue(), boost::none);
 }
 
 TEST(SafeQueue, StopEarly)
@@ -42,5 +42,5 @@ TEST(SafeQueue, StopEarly)
     EXPECT_EQ(safe_queue.size(), 1);
 
     safe_queue.stop();
-    EXPECT_EQ(safe_queue.dequeue(), std::nullopt);
+    EXPECT_EQ(safe_queue.dequeue(), boost::none);
 }

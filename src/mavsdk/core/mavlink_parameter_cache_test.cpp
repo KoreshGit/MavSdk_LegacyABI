@@ -78,7 +78,7 @@ TEST(MavlinkParameterCache, MissingIndicesSorted)
     cache.add_new_param("PARAM1", value);
 
     // No result when the count matches the contents.
-    EXPECT_EQ(cache.next_missing_index(2), std::nullopt);
+    EXPECT_EQ(cache.next_missing_index(2), boost::none);
     // The next entry when the count is bigger.
     EXPECT_EQ(cache.next_missing_index(3), 2);
     EXPECT_EQ(cache.next_missing_index(10), 2);

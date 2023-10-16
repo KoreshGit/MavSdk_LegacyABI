@@ -7,7 +7,7 @@
 #include <vector>
 #include "mavlink_include.h"
 #include "mavlink_command_receiver.h"
-
+#include <boost/optional.hpp>
 namespace mavsdk {
 
 class MavsdkImpl;
@@ -24,7 +24,7 @@ public:
     ~MavlinkRequestMessageHandler();
 
     using Params = std::array<float, 5>;
-    using Callback = std::function<std::optional<MAV_RESULT>(
+    using Callback = std::function<boost::optional<MAV_RESULT>(
         uint8_t target_system_id, uint8_t target_component_id, const Params&)>;
 
     bool register_handler(uint32_t message_id, const Callback& callback, const void* cookie);
@@ -32,9 +32,9 @@ public:
     void unregister_all_handlers(const void* cookie);
 
 private:
-    std::optional<mavlink_message_t>
+    boost::optional<mavlink_message_t>
     handle_command_long(const MavlinkCommandReceiver::CommandLong& command);
-    std::optional<mavlink_message_t>
+    boost::optional<mavlink_message_t>
     handle_command_int(const MavlinkCommandReceiver::CommandInt& command);
 
     struct Entry {

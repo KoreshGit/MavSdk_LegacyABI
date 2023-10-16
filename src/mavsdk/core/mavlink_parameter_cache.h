@@ -6,7 +6,7 @@
 #include <map>
 #include <string>
 #include <vector>
-
+#include <boost/optional.hpp>
 namespace mavsdk {
 
 class MavlinkParameterCache {
@@ -36,15 +36,15 @@ public:
     [[nodiscard]] std::map<std::string, ParamValue>
     all_parameters_map(bool including_extended) const;
 
-    [[nodiscard]] std::optional<Param>
+    [[nodiscard]] boost::optional<Param>
     param_by_id(const std::string& param_id, bool including_extended) const;
 
-    [[nodiscard]] std::optional<Param>
+    [[nodiscard]] boost::optional<Param>
     param_by_index(uint16_t param_index, bool including_extended) const;
 
     [[nodiscard]] uint16_t count(bool including_extended) const;
 
-    [[nodiscard]] std::optional<uint16_t> next_missing_index(uint16_t count);
+    [[nodiscard]] boost::optional<uint16_t> next_missing_index(uint16_t count);
 
     void clear();
 

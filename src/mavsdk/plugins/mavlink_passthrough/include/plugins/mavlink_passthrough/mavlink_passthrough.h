@@ -9,7 +9,7 @@
 #include "mavlink_include.h"
 #include "plugin_base.h"
 #include "handle.h"
-
+#include <boost/optional.hpp>
 namespace mavsdk {
 
 class System;
@@ -161,13 +161,13 @@ public:
      * @brief Request param (int).
      */
     std::pair<Result, int32_t> get_param_int(
-        const std::string& name, std::optional<uint8_t> maybe_component_id, bool extended);
+        const std::string& name, boost::optional<uint8_t> maybe_component_id, bool extended);
 
     /**
      * @brief Request param (float).
      */
     std::pair<Result, float> get_param_float(
-        const std::string& name, std::optional<uint8_t> maybe_component_id, bool extended);
+        const std::string& name, boost::optional<uint8_t> maybe_component_id, bool extended);
 
     /**
      * @brief Callback type for message subscriptions.

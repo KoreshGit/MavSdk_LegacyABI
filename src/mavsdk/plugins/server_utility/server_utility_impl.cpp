@@ -27,7 +27,7 @@ void ServerUtilityImpl::enable() {}
 
 void ServerUtilityImpl::disable() {}
 
-std::optional<MAV_SEVERITY>
+boost::optional<MAV_SEVERITY>
 ServerUtilityImpl::mav_severity_from_status_text_type(ServerUtility::StatusTextType type)
 {
     switch (type) {

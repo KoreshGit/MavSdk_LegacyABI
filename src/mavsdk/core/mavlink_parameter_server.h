@@ -13,7 +13,7 @@
 #include <string>
 #include <list>
 #include <utility>
-
+#include <boost/optional.hpp>
 namespace mavsdk {
 
 // This class provides parameters for other components to request or change.
@@ -29,7 +29,7 @@ public:
         //
         // Also see:
         // https://mavlink.io/en/services/parameter.html#parameters_invariant
-        std::optional<std::map<std::string, ParamValue>> optional_param_values = std::nullopt);
+        boost::optional<std::map<std::string, ParamValue>> optional_param_values = boost::none);
     ~MavlinkParameterServer();
 
     enum class Result {

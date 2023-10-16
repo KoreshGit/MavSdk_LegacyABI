@@ -126,7 +126,7 @@ bool fs_rename(const std::string& old_name, const std::string& new_name)
 }
 
 // Inspired by https://stackoverflow.com/a/58454949/8548472
-std::optional<std::string> create_tmp_directory(const std::string& prefix)
+boost::optional<std::string> create_tmp_directory(const std::string& prefix)
 {
     const auto tmp_dir = fs::temp_directory_path();
 

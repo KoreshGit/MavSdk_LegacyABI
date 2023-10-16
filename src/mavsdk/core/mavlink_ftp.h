@@ -11,7 +11,7 @@
 #include <vector>
 
 #include "mavlink_include.h"
-
+#include <boost/optional.hpp>
 // As found in
 // https://stackoverflow.com/questions/1537964#answer-3312896
 #ifdef _MSC_VER // MSVC
@@ -97,7 +97,7 @@ public:
     uint8_t get_our_compid();
     ClientResult set_target_compid(uint8_t component_id);
 
-    std::optional<std::string> write_tmp_file(const std::string& path, const std::string& content);
+    boost::optional<std::string> write_tmp_file(const std::string& path, const std::string& content);
 
 private:
     SystemImpl& _system_impl;

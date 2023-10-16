@@ -40,13 +40,13 @@ mavlink_message_t MavlinkPassthrough::make_command_ack_message(
 }
 
 std::pair<MavlinkPassthrough::Result, int32_t> MavlinkPassthrough::get_param_int(
-    const std::string& name, std::optional<uint8_t> maybe_component_id, bool extended)
+    const std::string& name, boost::optional<uint8_t> maybe_component_id, bool extended)
 {
     return _impl->get_param_int(name, maybe_component_id, extended);
 }
 
 std::pair<MavlinkPassthrough::Result, float> MavlinkPassthrough::get_param_float(
-    const std::string& name, std::optional<uint8_t> maybe_component_id, bool extended)
+    const std::string& name, boost::optional<uint8_t> maybe_component_id, bool extended)
 {
     return _impl->get_param_float(name, maybe_component_id, extended);
 }

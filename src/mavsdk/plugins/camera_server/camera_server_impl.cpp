@@ -335,7 +335,7 @@ void CameraServerImpl::stop_image_capture_interval()
     _image_capture_timer_interval_s = 0;
 }
 
-std::optional<mavlink_message_t> CameraServerImpl::process_camera_information_request(
+boost::optional<mavlink_message_t> CameraServerImpl::process_camera_information_request(
     const MavlinkCommandReceiver::CommandLong& command)
 {
     auto capabilities = static_cast<bool>(command.params.param1);
@@ -395,10 +395,10 @@ std::optional<mavlink_message_t> CameraServerImpl::process_camera_information_re
     LogDebug() << "sent info msg";
 
     // ack was already sent
-    return std::nullopt;
+    return boost::none;
 }
 
-std::optional<mavlink_message_t> CameraServerImpl::process_camera_settings_request(
+boost::optional<mavlink_message_t> CameraServerImpl::process_camera_settings_request(
     const MavlinkCommandReceiver::CommandLong& command)
 {
     auto settings = static_cast<bool>(command.params.param1);
@@ -437,10 +437,10 @@ std::optional<mavlink_message_t> CameraServerImpl::process_camera_settings_reque
     LogDebug() << "sent settings msg";
 
     // ack was already sent
-    return std::nullopt;
+    return boost::none;
 }
 
-std::optional<mavlink_message_t> CameraServerImpl::process_storage_information_request(
+boost::optional<mavlink_message_t> CameraServerImpl::process_storage_information_request(
     const MavlinkCommandReceiver::CommandLong& command)
 {
     auto storage_id = static_cast<uint8_t>(command.params.param1);
@@ -497,10 +497,10 @@ std::optional<mavlink_message_t> CameraServerImpl::process_storage_information_r
     LogDebug() << "sent storage msg";
 
     // ack was already sent
-    return std::nullopt;
+    return boost::none;
 }
 
-std::optional<mavlink_message_t>
+boost::optional<mavlink_message_t>
 CameraServerImpl::process_storage_format(const MavlinkCommandReceiver::CommandLong& command)
 {
     auto storage_id = static_cast<uint8_t>(command.params.param1);
@@ -517,7 +517,7 @@ CameraServerImpl::process_storage_format(const MavlinkCommandReceiver::CommandLo
         command, MAV_RESULT::MAV_RESULT_UNSUPPORTED);
 }
 
-std::optional<mavlink_message_t> CameraServerImpl::process_camera_capture_status_request(
+boost::optional<mavlink_message_t> CameraServerImpl::process_camera_capture_status_request(
     const MavlinkCommandReceiver::CommandLong& command)
 {
     auto capture_status = static_cast<bool>(command.params.param1);
@@ -566,10 +566,10 @@ std::optional<mavlink_message_t> CameraServerImpl::process_camera_capture_status
     _server_component_impl->send_message(msg);
 
     // ack was already sent
-    return std::nullopt;
+    return boost::none;
 }
 
-std::optional<mavlink_message_t>
+boost::optional<mavlink_message_t>
 CameraServerImpl::process_reset_camera_settings(const MavlinkCommandReceiver::CommandLong& command)
 {
     auto reset = static_cast<bool>(command.params.param1);
@@ -582,7 +582,7 @@ CameraServerImpl::process_reset_camera_settings(const MavlinkCommandReceiver::Co
         command, MAV_RESULT::MAV_RESULT_UNSUPPORTED);
 }
 
-std::optional<mavlink_message_t>
+boost::optional<mavlink_message_t>
 CameraServerImpl::process_set_camera_mode(const MavlinkCommandReceiver::CommandLong& command)
 {
     auto camera_mode = static_cast<CAMERA_MODE>(command.params.param2);
@@ -595,7 +595,7 @@ CameraServerImpl::process_set_camera_mode(const MavlinkCommandReceiver::CommandL
         command, MAV_RESULT::MAV_RESULT_UNSUPPORTED);
 }
 
-std::optional<mavlink_message_t>
+boost::optional<mavlink_message_t>
 CameraServerImpl::process_set_camera_zoom(const MavlinkCommandReceiver::CommandLong& command)
 {
     auto zoom_type = static_cast<CAMERA_ZOOM_TYPE>(command.params.param1);
@@ -610,7 +610,7 @@ CameraServerImpl::process_set_camera_zoom(const MavlinkCommandReceiver::CommandL
         command, MAV_RESULT::MAV_RESULT_UNSUPPORTED);
 }
 
-std::optional<mavlink_message_t>
+boost::optional<mavlink_message_t>
 CameraServerImpl::process_set_camera_focus(const MavlinkCommandReceiver::CommandLong& command)
 {
     auto focus_type = static_cast<SET_FOCUS_TYPE>(command.params.param1);
@@ -625,7 +625,7 @@ CameraServerImpl::process_set_camera_focus(const MavlinkCommandReceiver::Command
         command, MAV_RESULT::MAV_RESULT_UNSUPPORTED);
 }
 
-std::optional<mavlink_message_t>
+boost::optional<mavlink_message_t>
 CameraServerImpl::process_set_storage_usage(const MavlinkCommandReceiver::CommandLong& command)
 {
     auto storage_id = static_cast<uint8_t>(command.params.param1);
@@ -640,7 +640,7 @@ CameraServerImpl::process_set_storage_usage(const MavlinkCommandReceiver::Comman
         command, MAV_RESULT::MAV_RESULT_UNSUPPORTED);
 }
 
-std::optional<mavlink_message_t>
+boost::optional<mavlink_message_t>
 CameraServerImpl::process_image_start_capture(const MavlinkCommandReceiver::CommandLong& command)
 {
     auto interval_s = command.params.param2;
@@ -681,7 +681,7 @@ CameraServerImpl::process_image_start_capture(const MavlinkCommandReceiver::Comm
 
         _take_photo_callbacks(seq_number);
 
-        return std::nullopt;
+        return boost::none;
     }
 
     start_image_capture_interval(interval_s, total_images, seq_number);
@@ -690,7 +690,7 @@ CameraServerImpl::process_image_start_capture(const MavlinkCommandReceiver::Comm
         command, MAV_RESULT::MAV_RESULT_ACCEPTED);
 }
 
-std::optional<mavlink_message_t>
+boost::optional<mavlink_message_t>
 CameraServerImpl::process_image_stop_capture(const MavlinkCommandReceiver::CommandLong& command)
 {
     LogDebug() << "received image stop capture request";
@@ -703,7 +703,7 @@ CameraServerImpl::process_image_stop_capture(const MavlinkCommandReceiver::Comma
         command, MAV_RESULT::MAV_RESULT_ACCEPTED);
 }
 
-std::optional<mavlink_message_t> CameraServerImpl::process_camera_image_capture_request(
+boost::optional<mavlink_message_t> CameraServerImpl::process_camera_image_capture_request(
     const MavlinkCommandReceiver::CommandLong& command)
 {
     auto seq_number = static_cast<uint32_t>(command.params.param1);
@@ -716,7 +716,7 @@ std::optional<mavlink_message_t> CameraServerImpl::process_camera_image_capture_
         command, MAV_RESULT::MAV_RESULT_UNSUPPORTED);
 }
 
-std::optional<mavlink_message_t>
+boost::optional<mavlink_message_t>
 CameraServerImpl::process_video_start_capture(const MavlinkCommandReceiver::CommandLong& command)
 {
     auto stream_id = static_cast<uint8_t>(command.params.param1);
@@ -731,7 +731,7 @@ CameraServerImpl::process_video_start_capture(const MavlinkCommandReceiver::Comm
         command, MAV_RESULT::MAV_RESULT_UNSUPPORTED);
 }
 
-std::optional<mavlink_message_t>
+boost::optional<mavlink_message_t>
 CameraServerImpl::process_video_stop_capture(const MavlinkCommandReceiver::CommandLong& command)
 {
     auto stream_id = static_cast<uint8_t>(command.params.param1);
@@ -744,7 +744,7 @@ CameraServerImpl::process_video_stop_capture(const MavlinkCommandReceiver::Comma
         command, MAV_RESULT::MAV_RESULT_UNSUPPORTED);
 }
 
-std::optional<mavlink_message_t>
+boost::optional<mavlink_message_t>
 CameraServerImpl::process_video_start_streaming(const MavlinkCommandReceiver::CommandLong& command)
 {
     auto stream_id = static_cast<uint8_t>(command.params.param1);
@@ -757,7 +757,7 @@ CameraServerImpl::process_video_start_streaming(const MavlinkCommandReceiver::Co
         command, MAV_RESULT::MAV_RESULT_UNSUPPORTED);
 }
 
-std::optional<mavlink_message_t>
+boost::optional<mavlink_message_t>
 CameraServerImpl::process_video_stop_streaming(const MavlinkCommandReceiver::CommandLong& command)
 {
     auto stream_id = static_cast<uint8_t>(command.params.param1);
@@ -770,7 +770,7 @@ CameraServerImpl::process_video_stop_streaming(const MavlinkCommandReceiver::Com
         command, MAV_RESULT::MAV_RESULT_UNSUPPORTED);
 }
 
-std::optional<mavlink_message_t> CameraServerImpl::process_video_stream_information_request(
+boost::optional<mavlink_message_t> CameraServerImpl::process_video_stream_information_request(
     const MavlinkCommandReceiver::CommandLong& command)
 {
     auto stream_id = static_cast<uint8_t>(command.params.param1);
@@ -783,7 +783,7 @@ std::optional<mavlink_message_t> CameraServerImpl::process_video_stream_informat
         command, MAV_RESULT::MAV_RESULT_UNSUPPORTED);
 }
 
-std::optional<mavlink_message_t> CameraServerImpl::process_video_stream_status_request(
+boost::optional<mavlink_message_t> CameraServerImpl::process_video_stream_status_request(
     const MavlinkCommandReceiver::CommandLong& command)
 {
     auto stream_id = static_cast<uint8_t>(command.params.param1);

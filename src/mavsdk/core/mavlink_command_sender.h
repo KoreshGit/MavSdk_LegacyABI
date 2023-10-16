@@ -11,7 +11,7 @@
 #include <optional>
 #include <unordered_map>
 #include <variant>
-
+#include <boost/optional.hpp>
 namespace mavsdk {
 
 class SystemImpl;
@@ -47,13 +47,13 @@ public:
         bool autocontinue = false;
         // Most of the "Reserved" values in MAVLink spec are NAN.
         struct Params {
-            std::optional<float> maybe_param1{};
-            std::optional<float> maybe_param2{};
-            std::optional<float> maybe_param3{};
-            std::optional<float> maybe_param4{};
+            boost::optional<float> maybe_param1{};
+            boost::optional<float> maybe_param2{};
+            boost::optional<float> maybe_param3{};
+            boost::optional<float> maybe_param4{};
             int32_t x = 0;
             int32_t y = 0;
-            std::optional<float> maybe_z{};
+            boost::optional<float> maybe_z{};
         } params{};
     };
 
@@ -63,13 +63,13 @@ public:
         uint16_t command{0};
         uint8_t confirmation = 0;
         struct Params {
-            std::optional<float> maybe_param1{};
-            std::optional<float> maybe_param2{};
-            std::optional<float> maybe_param3{};
-            std::optional<float> maybe_param4{};
-            std::optional<float> maybe_param5{};
-            std::optional<float> maybe_param6{};
-            std::optional<float> maybe_param7{};
+            boost::optional<float> maybe_param1{};
+            boost::optional<float> maybe_param2{};
+            boost::optional<float> maybe_param3{};
+            boost::optional<float> maybe_param4{};
+            boost::optional<float> maybe_param5{};
+            boost::optional<float> maybe_param6{};
+            boost::optional<float> maybe_param7{};
         } params{};
     };
 
@@ -153,7 +153,7 @@ private:
 
     mavlink_message_t create_mavlink_message(const Command& command);
 
-    float maybe_reserved(const std::optional<float>& maybe_param) const;
+    float maybe_reserved(const boost::optional<float>& maybe_param) const;
 
     SystemImpl& _system_impl;
     LockedQueue<Work> _work_queue{};

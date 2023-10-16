@@ -6,7 +6,7 @@
 #include <vector>
 #include <optional>
 #include "mavlink_include.h"
-
+#include <boost/optional.hpp>
 namespace mavsdk {
 
 class MavlinkMessageHandler {
@@ -15,7 +15,7 @@ public:
 
     struct Entry {
         uint32_t msg_id;
-        std::optional<uint8_t> cmp_id;
+        boost::optional<uint8_t> cmp_id;
         Callback callback;
         const void* cookie; // This is the identification to unregister.
     };
@@ -23,7 +23,7 @@ public:
     void register_one(uint16_t msg_id, const Callback& callback, const void* cookie);
     void register_one(
         uint16_t msg_id,
-        std::optional<uint8_t> cmp_id,
+        boost::optional<uint8_t> cmp_id,
         const Callback& callback,
         const void* cookie);
     void unregister_one(uint16_t msg_id, const void* cookie);
