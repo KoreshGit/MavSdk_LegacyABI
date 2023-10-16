@@ -1,6 +1,6 @@
 [submodule "mavsdk-proto"]
 	path = proto
 	url = https://github.com/mavlink/MAVSDK-Proto.git
-[submodule "third_party/gtest"]
-	path = third_party/gtest
+[submodule "src/thirdthird_party/gtest"]
+	path = src/thirdthird_party/gtest
 	url = git@github.com:KoreshGit/googletest.git
